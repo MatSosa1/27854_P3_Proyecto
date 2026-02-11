@@ -1,0 +1,21 @@
+{
+  "name": "pruebas-unitarias-backend",
+  "version": "1.0.0",
+  "description": "Pruebas unitarias del backend con patrón AAA",
+  "scripts": {
+    "test": "jest --verbose",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": ["testing", "jest", "AAA", "backend"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "supertest": "^6.3.3"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.0"
+  }
+}

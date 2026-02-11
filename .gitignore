@@ -3,3 +3,19 @@ node_modules
 coverage
 *.log
 .DS_Store
+
+# Angular cache
+.angular/
+*/.angular/
+
+# Build outputs
+dist/
+*/dist/
+out/
+*/out/
+
+# Test coverage
+*/coverage/
+
+# OS files
+Thumbs.db
