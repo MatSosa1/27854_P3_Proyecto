@@ -4,15 +4,17 @@ const Especialidad = require('../src/models/Especialidad');
 const mongoose = require('mongoose');
 
 describe('Especialidades API - Pruebas Unitarias con Patrón AAA', () => {
+    // Limpieza de base de datos antes de la suite
+    beforeAll(async () => {
+        await Especialidad.deleteMany({});
+    });
+
     // Limpieza de base de datos antes de cada prueba
     beforeEach(async () => {
         await Especialidad.deleteMany({});
     });
 
-    // Cerrar conexión de MongoDB después de todas las pruebas
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
+
 
     describe('GET /api/especialidades', () => {
         test('Debe retornar un array vacío inicialmente', async () => {

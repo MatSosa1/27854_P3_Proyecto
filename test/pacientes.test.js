@@ -4,15 +4,17 @@ const Paciente = require('../src/models/Paciente');
 const mongoose = require('mongoose');
 
 describe('Pacientes API', () => {
+    // Clear database before test suite
+    beforeAll(async () => {
+        await Paciente.deleteMany({});
+    });
+
     // Clear database before each test
     beforeEach(async () => {
         await Paciente.deleteMany({});
     });
 
-    // Close database connection after all tests
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
+
 
     // GET
     test('GET /api/pacientes should return an empty list initially', async () => {

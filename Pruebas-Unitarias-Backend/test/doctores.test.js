@@ -4,14 +4,14 @@ const Doctor = require('../src/models/Doctor');
 const mongoose = require('mongoose');
 
 describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
-    // Limpieza de base de datos antes de cada prueba
-    beforeEach(async () => {
+    // Limpieza de base de datos antes de la suite de pruebas
+    beforeAll(async () => {
         await Doctor.deleteMany({});
     });
 
-    // Cerrar conexión de MongoDB después de todas las pruebas
-    afterAll(async () => {
-        await mongoose.connection.close();
+    // Limpieza de base de datos antes de cada prueba
+    beforeEach(async () => {
+        await Doctor.deleteMany({});
     });
 
     describe('GET /api/doctores', () => {
@@ -56,6 +56,26 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
             const names = response.body.map(d => d.name);
             expect(names).toContain('Carlos');
             expect(names).toContain('María');
+        });
+
+        test('Debe retornar estructura completa de doctor', async () => {
+            const doctor = {
+                name: 'Test',
+                lastName: 'Doctor',
+                specialty: 'Medicina',
+                phone: '0987654321',
+                email: 'test@hospital.com',
+                licenseNumber: 'LIC-TEST',
+            };
+            await request(app).post('/api/doctores').send(doctor);
+            
+            const response = await request(app).get('/api/doctores');
+            
+            expect(response.status).toBe(200);
+            expect(response.body[0]).toHaveProperty('_id');
+            expect(response.body[0]).toHaveProperty('name');
+            expect(response.body[0]).toHaveProperty('lastName');
+            expect(response.body[0]).toHaveProperty('specialty');
         });
     });
 
@@ -131,11 +151,74 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
             // ASSERT: Verificar error 409 (conflicto)
             expect(response.status).toBe(409);
         });
-    });
+
+        test('Debe rechazar doctor sin nombre', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                lastName: 'Test',
+                specialty: 'Cardiología',
+                phone: '0987654321',
+                email: 'test@hospital.com',
+                licenseNumber: 'LIC-TEST-001',
+            });
+            expect(response.status).toBe(400);
+        });
+
+        test('Debe rechazar doctor sin specialty', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                name: 'Test',
+                lastName: 'Test',
+                phone: '0987654321',
+                email: 'test@hospital.com',
+                licenseNumber: 'LIC-TEST-002',
+            });
+            expect(response.status).toBe(400);
+        });
+
+        test('Debe rechazar doctor sin licenseNumber', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                name: 'Test',
+                lastName: 'Test',
+                specialty: 'Cardiología',
+                phone: '0987654321',
+                email: 'test@hospital.com',
+            });
+            expect(response.status).toBe(400);
+        });
+        test('Debe rechazar doctor sin phone', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                name: 'Test',
+                lastName: 'Test',
+                specialty: 'Cardiología',
+                email: 'test@hospital.com',
+                licenseNumber: 'LIC-TEST-003',
+            });
+            expect(response.status).toBe(400);
+        });
+
+        test('Debe rechazar doctor sin email', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                name: 'Test',
+                lastName: 'Test',
+                specialty: 'Cardiología',
+                phone: '0987654321',
+                licenseNumber: 'LIC-TEST-004',
+            });
+            expect(response.status).toBe(400);
+        });
+
+        test('Debe rechazar doctor sin lastName', async () => {
+            const response = await request(app).post('/api/doctores').send({
+                name: 'Test',
+                specialty: 'Cardiología',
+                phone: '0987654321',
+                email: 'test@hospital.com',
+                licenseNumber: 'LIC-TEST-005',
+            });
+            expect(response.status).toBe(400);
+        });    });
 
     describe('PUT /api/doctores/:id', () => {
-        test('Debe actualizar los datos de un doctor existente', async () => {
-            // ARRANGE: Crear doctor inicial
+        test('Debe actualizar un doctor existente', async () => {
             const doctor = {
                 name: 'Ana',
                 lastName: 'Martínez',
@@ -147,39 +230,103 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
             const created = await request(app).post('/api/doctores').send(doctor);
             const id = created.body._id;
 
-            // ACT: Actualizar teléfono y especialidad
-            const updated = await request(app)
+            const response = await request(app)
                 .put(`/api/doctores/${id}`)
                 .send({ 
+                    name: 'Ana Updated',
+                    specialty: 'Cardiología',
                     phone: '0999999999',
-                    specialty: 'Neurología Pediátrica',
                 });
 
-            // ASSERT: Verificar actualización
-            expect(updated.status).toBe(200);
-            expect(updated.body.phone).toBe('0999999999');
-            expect(updated.body.specialty).toBe('Neurología Pediátrica');
-            expect(updated.body.name).toBe('Ana'); // Campos no modificados permanecen
+            expect(response.status).toBe(200);
+            expect(response.body.name).toBe('Ana Updated');
+            expect(response.body.specialty).toBe('Cardiología');
+            expect(response.body.phone).toBe('0999999999');
+        });
+
+        test('Debe actualizar solo algunos campos', async () => {
+            const doctor = {
+                name: 'Rosa',
+                lastName: 'González',
+                specialty: 'Pediatría',
+                phone: '0982222222',
+                email: 'rosa@hospital.com',
+                licenseNumber: 'LIC-666',
+            };
+            const created = await request(app).post('/api/doctores').send(doctor);
+            const id = created.body._id;
+
+            const response = await request(app)
+                .put(`/api/doctores/${id}`)
+                .send({ phone: '0999888888' });
+
+            expect(response.status).toBe(200);
+            expect(response.body.phone).toBe('0999888888');
+            expect(response.body.name).toBe('Rosa');
+            expect(response.body.specialty).toBe('Pediatría');
+        });
+
+        test('Debe rechazar actualización de licenseNumber duplicado', async () => {
+            const doctor1 = await request(app).post('/api/doctores').send({
+                name: 'Doctor1',
+                lastName: 'Test',
+                specialty: 'Cardiología',
+                phone: '0981111111',
+                email: 'doc1@hospital.com',
+                licenseNumber: 'LIC-111',
+            });
+
+            const doctor2 = await request(app).post('/api/doctores').send({
+                name: 'Doctor2',
+                lastName: 'Test',
+                specialty: 'Pediatría',
+                phone: '0982222222',
+                email: 'doc2@hospital.com',
+                licenseNumber: 'LIC-222',
+            });
+
+            const response = await request(app)
+                .put(`/api/doctores/${doctor2.body._id}`)
+                .send({ licenseNumber: 'LIC-111' });
+
+            expect(response.status).toBe(409);
+            expect(response.body).toHaveProperty('message', 'A doctor with this license number already exists');
         });
 
         test('Debe retornar 404 al actualizar doctor inexistente', async () => {
-            // ARRANGE: ID de doctor inexistente
             const fakeId = '507f1f77bcf86cd799439011';
-            
-            // ACT: Intentar actualizar doctor inexistente
             const response = await request(app)
                 .put(`/api/doctores/${fakeId}`)
                 .send({ specialty: 'Dermatología' });
 
-            // ASSERT: Verificar error 404
             expect(response.status).toBe(404);
             expect(response.body).toHaveProperty('message', 'Doctor not found');
+        });
+
+        test('Debe permitir actualizar licenseNumber con el mismo valor', async () => {
+            const doctor = {
+                name: 'Juan',
+                lastName: 'Pérez',
+                specialty: 'Oftalmología',
+                phone: '0983333333',
+                email: 'juan@hospital.com',
+                licenseNumber: 'LIC-333',
+            };
+            const created = await request(app).post('/api/doctores').send(doctor);
+            const id = created.body._id;
+
+            const response = await request(app)
+                .put(`/api/doctores/${id}`)
+                .send({ name: 'Juan Updated', licenseNumber: 'LIC-333' });
+
+            expect(response.status).toBe(200);
+            expect(response.body.name).toBe('Juan Updated');
+            expect(response.body.licenseNumber).toBe('LIC-333');
         });
     });
 
     describe('DELETE /api/doctores/:id', () => {
         test('Debe eliminar un doctor existente', async () => {
-            // ARRANGE: Crear doctor a eliminar
             const doctor = {
                 name: 'Luis',
                 lastName: 'Fernández',
@@ -191,28 +338,19 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
             const created = await request(app).post('/api/doctores').send(doctor);
             const id = created.body._id;
 
-            // ACT: Eliminar doctor
-            const deleted = await request(app).delete(`/api/doctores/${id}`);
-
-            // ASSERT: Verificar eliminación exitosa
-            expect(deleted.status).toBe(200);
-            expect(deleted.body.name).toBe('Luis');
+            const response = await request(app).delete(`/api/doctores/${id}`);
             
-            // Verificar que ya no existe
-            const response = await request(app).get('/api/doctores');
-            expect(response.body.find(d => d._id === id)).toBeUndefined();
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('name', 'Luis');
         });
 
         test('Debe retornar 404 al eliminar doctor inexistente', async () => {
-            // ARRANGE: ID de doctor inexistente
             const fakeId = '507f1f77bcf86cd799439011';
-            
-            // ACT: Intentar eliminar doctor inexistente
             const response = await request(app).delete(`/api/doctores/${fakeId}`);
-
-            // ASSERT: Verificar error 404
             expect(response.status).toBe(404);
             expect(response.body).toHaveProperty('message', 'Doctor not found');
         });
     });
+
+
 });

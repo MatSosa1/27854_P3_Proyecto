@@ -1,6 +1,7 @@
 module.exports = {
   testEnvironment: 'node',
   preset: 'ts-jest',
+  setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
   testMatch: [
     '**/?(*.)+(spec|test).[jt]s?(x)',
   ],
@@ -32,6 +33,7 @@ module.exports = {
     '!**/*.spec.{js,ts}',
     '!src/server.js',
     '!src/testRunner.js',
+    '!Pruebas-Unitarias-Backend/src/server.js',
     '!Pruebas-Unitarias-Backend/src/testRunner.js',
   ],
   testTimeout: 10000,

@@ -4,15 +4,17 @@ const Especialidad = require('../src/models/Especialidad');
 const mongoose = require('mongoose');
 
 describe('Especialidades API', () => {
+    // Clear database before each test suite
+    beforeAll(async () => {
+        await Especialidad.deleteMany({});
+    });
+
     // Clear database before each test
     beforeEach(async () => {
         await Especialidad.deleteMany({});
     });
 
-    // Close database connection after all tests
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
+
 
     // GET
     test('GET /api/especialidades should return an empty list initially', async () => {

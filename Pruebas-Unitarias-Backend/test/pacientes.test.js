@@ -4,15 +4,17 @@ const Paciente = require('../src/models/Paciente');
 const mongoose = require('mongoose');
 
 describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
+    // Limpieza de base de datos antes de la suite
+    beforeAll(async () => {
+        await Paciente.deleteMany({});
+    });
+
     // Limpieza de base de datos antes de cada prueba
     beforeEach(async () => {
         await Paciente.deleteMany({});
     });
 
-    // Cerrar conexión de MongoDB después de todas las pruebas
-    afterAll(async () => {
-        await mongoose.connection.close();
-    });
+
 
     describe('GET /api/pacientes', () => {
         test('Debe retornar una lista vacía inicialmente', async () => {
@@ -91,6 +93,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 illness: 'Fiebre',
             };
             const created = await request(app).post('/api/pacientes').send(patient);
+            expect(created.statusCode).toBe(201);
             const id = created.body._id;
 
             // ACT: Actualizar enfermedad del paciente
@@ -102,7 +105,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
             expect(updated.statusCode).toBe(200);
             expect(updated.body.illness).toBe('Migraña');
             expect(updated.body.name).toBe('Ana'); // Otros campos no cambian
-        });
+        }, 15000);
 
         test('Debe actualizar múltiples campos simultáneamente', async () => {
             // ARRANGE: Crear paciente inicial

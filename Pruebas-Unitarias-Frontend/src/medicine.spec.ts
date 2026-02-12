@@ -190,4 +190,88 @@ describe('Medicine - Pruebas Unitarias con Patrón AAA', () => {
             expect(isValid).toBe(false);
         });
     });
+
+    describe('Operaciones avanzadas de stock', () => {
+        let medicine: Medicine;
+
+        beforeEach(() => {
+            medicine = new Medicine(
+                1,
+                'Paracetamol',
+                'Analgésico y antipirético',
+                5.00,
+                50,
+                'Analgésicos',
+                'FarmaLab',
+            );
+        });
+
+        it('Debe agregar stock correctamente', () => {
+            // ARRANGE: Medicamento con 50 unidades
+            const initialQuantity = medicine.quantity;
+            
+            // ACT: Agregar 30 unidades
+            medicine.addStock(30);
+            
+            // ASSERT: Debe tener 80 unidades
+            expect(medicine.quantity).toBe(initialQuantity + 30);
+        });
+
+        it('No debe agregar stock negativo', () => {
+            // ARRANGE: Medicamento con 50 unidades
+            const initialQuantity = medicine.quantity;
+            
+            // ACT: Intentar agregar -10 unidades
+            medicine.addStock(-10);
+            
+            // ASSERT: Debe mantener cantidad original
+            expect(medicine.quantity).toBe(initialQuantity);
+        });
+
+        it('No debe agregar stock de cero', () => {
+            // ARRANGE: Medicamento con 50 unidades
+            const initialQuantity = medicine.quantity;
+            
+            // ACT: Intentar agregar 0 unidades
+            medicine.addStock(0);
+            
+            // ASSERT: Debe mantener cantidad original
+            expect(medicine.quantity).toBe(initialQuantity);
+        });
+
+        it('Debe convertir medicamento a JSON correctamente', () => {
+            // ARRANGE: Medicamento existente
+            
+            // ACT: Convertir a JSON
+            const json = medicine.toJSON();
+            
+            // ASSERT: JSON debe contener todos los campos
+            expect(json.id).toBe(1);
+            expect(json.name).toBe('Paracetamol');
+            expect(json.price).toBe(5.00);
+            expect(json.quantity).toBe(50);
+        });
+
+        it('Debe crear medicamento desde JSON', () => {
+            // ARRANGE: Objeto JSON
+            const json = {
+                id: 2,
+                name: 'Ibuprofeno',
+                description: 'Antiinflamatorio',
+                price: 7.50,
+                quantity: 100,
+                category: 'Antiinflamatorios',
+                laboratory: 'FarmaCorp',
+            };
+            
+            // ACT: Crear medicamento desde JSON
+            const newMedicine = Medicine.fromJSON(json);
+            
+            // ASSERT: Medicamento debe tener datos correctos
+            expect(newMedicine.id).toBe(2);
+            expect(newMedicine.name).toBe('Ibuprofeno');
+            expect(newMedicine.quantity).toBe(100);
+        });
+    });
 });
+
