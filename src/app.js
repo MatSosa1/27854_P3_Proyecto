@@ -8,10 +8,18 @@ if (fs.existsSync('.env')) {
     require('dotenv').config();
 }
 
+// Debug: Verificar variables de entorno
+console.log('🔍 Environment check:');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('MONGO_URI exists:', !!process.env.MONGO_URI);
+console.log('MONGO_URI length:', process.env.MONGO_URI?.length || 0);
+
 const patientRoutes = require('./routes/pacientes.routes');
 const medicamentosRoutes = require('./routes/medicamentos.routes');
 const especialidadesRoutes = require('./routes/especialidades.routes');
 const doctoresRoutes = require('./routes/doctores.routes');
+const authRoutes = require('./routes/auth.routes');
+const { authMiddleware } = require('./middleware/auth.middleware');
 const { runTests, getTestLogs } = require('./testRunner');
 
 const app = express(); // Creates an Express application instance
@@ -33,6 +41,11 @@ app.use(express.json());
 // Serve static files from public folder
 app.use(express.static(path.join(__dirname, '../public')));
 
+// Redirect root to login page
+app.get('/', (req, res) => {
+    res.redirect('/login.html');
+});
+
 // MongoDB Connection
 if (process.env.MONGO_URI) {
     mongoose.connect(process.env.MONGO_URI)
@@ -41,6 +54,7 @@ if (process.env.MONGO_URI) {
 }
 
 // API Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/pacientes', patientRoutes);
 app.use('/api/medicamentos', medicamentosRoutes);
 app.use('/api/especialidades', especialidadesRoutes);

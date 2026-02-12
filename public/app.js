@@ -1,5 +1,17 @@
 // API Base URL
-const API_URL = 'https://hospital-api-81p9.onrender.com/api';
+const API_URL = 'http://localhost:3000/api';
+
+// Handle logout
+function handleLogout() {
+    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        // Clear authentication data
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // Redirect to login page
+        window.location.href = '/login.html';
+    }
+}
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
