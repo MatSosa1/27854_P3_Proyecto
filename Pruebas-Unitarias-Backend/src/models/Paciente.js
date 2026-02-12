@@ -5,34 +5,34 @@ const pacienteSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     lastName: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
-        trim: true
+        trim: true,
     },
     gender: {
         type: String,
         required: true,
         enum: ['Masculino', 'Femenino', 'Otro'],
-        trim: true
+        trim: true,
     },
     illness: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 // Exporta el modelo Paciente

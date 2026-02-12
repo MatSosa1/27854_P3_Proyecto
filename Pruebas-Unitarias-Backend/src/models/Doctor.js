@@ -5,39 +5,39 @@ const doctorSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     lastName: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     specialty: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     phone: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
-        trim: true
+        trim: true,
     },
     licenseNumber: {
         type: String,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
     },
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 // Exporta el modelo Doctor

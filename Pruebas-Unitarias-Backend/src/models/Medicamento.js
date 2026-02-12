@@ -5,37 +5,37 @@ const medicamentoSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     description: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     price: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
     },
     quantity: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
     },
     category: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     laboratory: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     createdAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
 // Exporta el modelo Medicamento

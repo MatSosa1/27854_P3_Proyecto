@@ -29,7 +29,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                     price: 5.50,
                     quantity: 100,
                     category: 'Analgésicos',
-                    laboratory: 'Bayer'
+                    laboratory: 'Bayer',
                 },
                 {
                     name: 'Ibuprofeno',
@@ -37,8 +37,8 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                     price: 6.00,
                     quantity: 80,
                     category: 'Antiinflamatorios',
-                    laboratory: 'Pfizer'
-                }
+                    laboratory: 'Pfizer',
+                },
             ]);
             
             // ACT: Obtener lista de medicamentos
@@ -62,7 +62,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                 price: 5.50,
                 quantity: 100,
                 category: 'Analgésicos',
-                laboratory: 'Bayer'
+                laboratory: 'Bayer',
             };
 
             // ACT: Enviar petición POST
@@ -99,7 +99,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                 price: 3.50,
                 quantity: 50,
                 category: 'Antiinflamatorios',
-                laboratory: 'Bayer'
+                laboratory: 'Bayer',
             };
             const created = await request(app).post('/api/medicamentos').send(medicamento);
             const id = created.body._id;
@@ -123,7 +123,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                 price: 6.00,
                 quantity: 80,
                 category: 'Antiinflamatorios',
-                laboratory: 'Pfizer'
+                laboratory: 'Pfizer',
             };
             const created = await request(app).post('/api/medicamentos').send(medicamento);
             const id = created.body._id;
@@ -134,7 +134,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                 .send({
                     name: 'Ibuprofeno 400mg',
                     description: 'Antiinflamatorio y analgésico',
-                    quantity: 100
+                    quantity: 100,
                 });
 
             // ASSERT: Verificar actualizaciones múltiples
@@ -169,7 +169,7 @@ describe('Medicamentos API - Pruebas Unitarias con Patrón AAA', () => {
                 price: 8.50,
                 quantity: 30,
                 category: 'Antibióticos',
-                laboratory: 'Pfizer'
+                laboratory: 'Pfizer',
             };
             const created = await request(app).post('/api/medicamentos').send(medicamento);
             const id = created.body._id;

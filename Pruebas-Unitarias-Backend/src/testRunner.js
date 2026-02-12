@@ -12,33 +12,33 @@ const testFiles = {
     'doctors-create': {
         file: path.join(__dirname, '../test/doctores.test.js'),
         find: 'expect(response.status).toBe(201);',
-        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL'
+        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL',
     },
     'doctors-update': {
         file: path.join(__dirname, '../test/doctores.test.js'),
         find: 'expect(response.status).toBe(200);\n    expect(response.body.name).toBe(\'Dr. Juan Actualizado\');',
-        replace: 'expect(response.status).toBe(404); // MODIFIED TO FAIL\n    expect(response.body.name).toBe(\'Dr. Juan Actualizado\');'
+        replace: 'expect(response.status).toBe(404); // MODIFIED TO FAIL\n    expect(response.body.name).toBe(\'Dr. Juan Actualizado\');',
     },
     'doctors-delete': {
         file: path.join(__dirname, '../test/doctores.test.js'),
         find: 'const deleteResponse = await request(app).delete(`/api/doctores/${doctorId}`);\n    expect(deleteResponse.status).toBe(200);',
-        replace: 'const deleteResponse = await request(app).delete(`/api/doctores/${doctorId}`);\n    expect(deleteResponse.status).toBe(404); // MODIFIED TO FAIL'
+        replace: 'const deleteResponse = await request(app).delete(`/api/doctores/${doctorId}`);\n    expect(deleteResponse.status).toBe(404); // MODIFIED TO FAIL',
     },
     'patients-create': {
         file: path.join(__dirname, '../test/pacientes.test.js'),
         find: 'expect(response.status).toBe(201);',
-        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL'
+        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL',
     },
     'medicines-create': {
         file: path.join(__dirname, '../test/medicamentos.test.js'),
         find: 'expect(response.status).toBe(201);',
-        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL'
+        replace: 'expect(response.status).toBe(500); // MODIFIED TO FAIL',
     },
     'specialties-duplicate': {
         file: path.join(__dirname, '../test/especialidades.test.js'),
         find: 'expect(response2.status).toBe(409);',
-        replace: 'expect(response2.status).toBe(201); // MODIFIED TO FAIL'
-    }
+        replace: 'expect(response2.status).toBe(201); // MODIFIED TO FAIL',
+    },
 };
 
 /**
@@ -62,7 +62,7 @@ function saveTestLog(logData) {
             failed: logData.failed,
             total: logData.total,
             failedTests: logData.failedTests || [],
-            output: logData.output
+            output: logData.output,
         });
 
         // Keep only last 100 entries
@@ -98,7 +98,7 @@ function runTests(failTests, callback) {
                             fs.writeFileSync(testConfig.file, modifiedContent);
                             modifiedFiles.push({
                                 file: testConfig.file,
-                                original: originalContent
+                                original: originalContent,
                             });
                         }
                     } catch (fileError) {
@@ -138,7 +138,7 @@ function runTests(failTests, callback) {
                 failed: failed,
                 suites: suites,
                 output: output || 'No output received',
-                error: null
+                error: null,
             };
 
             // Save log
@@ -147,7 +147,7 @@ function runTests(failTests, callback) {
                 failed: failed,
                 total: total,
                 failedTests: failTests || [],
-                output: output
+                output: output,
             });
 
             callback(null, result);
@@ -187,5 +187,5 @@ function getTestLogs() {
 module.exports = {
     runTests,
     getTestLogs,
-    saveTestLog
+    saveTestLog,
 };

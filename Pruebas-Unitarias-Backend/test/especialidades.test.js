@@ -25,7 +25,7 @@ describe('Especialidades API - Pruebas Unitarias con Patrón AAA', () => {
             await Especialidad.create([
                 { name: 'Cardiología' },
                 { name: 'Pediatría' },
-                { name: 'Neurología' }
+                { name: 'Neurología' },
             ]);
             
             // ACT: Obtener lista de especialidades

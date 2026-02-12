@@ -24,7 +24,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
             // ARRANGE: Crear pacientes de prueba
             await Paciente.create([
                 { name: 'Juan', lastName: 'Pérez', email: 'juan@test.com', gender: 'Masculino', illness: 'Gripe' },
-                { name: 'María', lastName: 'López', email: 'maria@test.com', gender: 'Femenino', illness: 'Fiebre' }
+                { name: 'María', lastName: 'López', email: 'maria@test.com', gender: 'Femenino', illness: 'Fiebre' },
             ]);
             
             // ACT: Realizar petición GET
@@ -47,7 +47,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 lastName: 'Perez',
                 email: 'juanperez@example.com',
                 gender: 'Masculino',
-                illness: 'Gripe'
+                illness: 'Gripe',
             };
 
             // ACT: Enviar petición POST
@@ -82,7 +82,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 lastName: 'Lopez',
                 email: 'analopez@example.com',
                 gender: 'Femenino',
-                illness: 'Fiebre'
+                illness: 'Fiebre',
             };
             const created = await request(app).post('/api/pacientes').send(patient);
             const id = created.body._id;
@@ -105,7 +105,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 lastName: 'Garcia',
                 email: 'pedro@example.com',
                 gender: 'Masculino',
-                illness: 'Diabetes'
+                illness: 'Diabetes',
             };
             const created = await request(app).post('/api/pacientes').send(patient);
             const id = created.body._id;
@@ -116,7 +116,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 .send({
                     name: 'Pedro Luis',
                     lastName: 'Garcia Perez',
-                    email: 'pedroluis@example.com'
+                    email: 'pedroluis@example.com',
                 });
 
             // ASSERT: Verificar todas las actualizaciones
@@ -150,7 +150,7 @@ describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
                 lastName: 'Perez',
                 email: 'carlosperez@example.com',
                 gender: 'Masculino',
-                illness: 'Alergia'
+                illness: 'Alergia',
             };
             const created = await request(app).post('/api/pacientes').send(patient);
             const id = created.body._id;

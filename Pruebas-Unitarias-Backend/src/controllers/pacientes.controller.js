@@ -27,7 +27,7 @@ async function addnewPatient(req, res) {
             lastName,
             email,
             gender,
-            illness
+            illness,
         });
 
         // Lo guardamos en la base de datos

@@ -29,7 +29,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                     specialty: 'Cardiología',
                     phone: '0987654321',
                     email: 'carlos@hospital.com',
-                    licenseNumber: 'LIC-001'
+                    licenseNumber: 'LIC-001',
                 },
                 {
                     name: 'María',
@@ -37,8 +37,8 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                     specialty: 'Pediatría',
                     phone: '0987654322',
                     email: 'maria@hospital.com',
-                    licenseNumber: 'LIC-002'
-                }
+                    licenseNumber: 'LIC-002',
+                },
             ]);
             
             // ACT: Obtener lista de doctores
@@ -62,7 +62,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 specialty: 'Cardiología',
                 phone: '0987654321',
                 email: 'carlos.ramirez@hospital.com',
-                licenseNumber: 'LIC-12345'
+                licenseNumber: 'LIC-12345',
             };
 
             // ACT: Enviar petición POST
@@ -83,7 +83,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
             // ARRANGE: Datos incompletos (faltan campos requeridos)
             const incompleteDoctor = {
                 name: 'Maria',
-                lastName: 'Gonzalez'
+                lastName: 'Gonzalez',
                 // Faltan: specialty, phone, email, licenseNumber
             };
 
@@ -105,7 +105,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 specialty: 'Cardiología',
                 phone: '0987654321',
                 email: 'carlos.ramirez@hospital.com',
-                licenseNumber: 'LIC-12345'
+                licenseNumber: 'LIC-12345',
             });
             
             const duplicateDoctor = {
@@ -114,7 +114,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 specialty: 'Pediatría',
                 phone: '0998765432',
                 email: 'pedro.sanchez@hospital.com',
-                licenseNumber: 'LIC-12345' // Número de licencia duplicado
+                licenseNumber: 'LIC-12345', // Número de licencia duplicado
             };
 
             // ACT: Intentar crear doctor con licencia duplicada
@@ -136,7 +136,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 specialty: 'Neurología',
                 phone: '0981234567',
                 email: 'ana@hospital.com',
-                licenseNumber: 'LIC-999'
+                licenseNumber: 'LIC-999',
             };
             const created = await request(app).post('/api/doctores').send(doctor);
             const id = created.body._id;
@@ -146,7 +146,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 .put(`/api/doctores/${id}`)
                 .send({ 
                     phone: '0999999999',
-                    specialty: 'Neurología Pediátrica'
+                    specialty: 'Neurología Pediátrica',
                 });
 
             // ASSERT: Verificar actualización
@@ -180,7 +180,7 @@ describe('Doctores API - Pruebas Unitarias con Patrón AAA', () => {
                 specialty: 'Oftalmología',
                 phone: '0987777777',
                 email: 'luis@hospital.com',
-                licenseNumber: 'LIC-777'
+                licenseNumber: 'LIC-777',
             };
             const created = await request(app).post('/api/doctores').send(doctor);
             const id = created.body._id;
