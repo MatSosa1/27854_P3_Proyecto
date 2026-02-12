@@ -16,8 +16,6 @@ module.exports = {
     }],
   },
   testPathIgnorePatterns: ['/node_modules/'],
-  forceExit: true,
-  detectOpenHandles: false,
   coverageThreshold: {
     global: {
       branches: 80,
