@@ -1,5 +1,5 @@
 // API Base URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://hospitalms-ee038.web.app/api';
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
