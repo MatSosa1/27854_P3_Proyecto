@@ -16,6 +16,8 @@ module.exports = {
     },
   },
   testPathIgnorePatterns: ['/node_modules/'],
+  forceExit: true,
+  detectOpenHandles: false,
   collectCoverageFrom: [
     'src/**/*.{js,ts}',
     'Pruebas-Unitarias-Backend/src/**/*.{js,ts}',

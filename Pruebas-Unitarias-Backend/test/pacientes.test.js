@@ -1,11 +1,17 @@
 const request = require('supertest');
 const app = require('../src/app.js');
 const Paciente = require('../src/models/Paciente');
+const mongoose = require('mongoose');
 
 describe('Pacientes API - Pruebas Unitarias con Patrón AAA', () => {
     // Limpieza de base de datos antes de cada prueba
     beforeEach(async () => {
         await Paciente.deleteMany({});
+    });
+
+    // Cerrar conexión de MongoDB después de todas las pruebas
+    afterAll(async () => {
+        await mongoose.connection.close();
     });
 
     describe('GET /api/pacientes', () => {
