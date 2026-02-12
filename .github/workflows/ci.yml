@@ -46,3 +46,18 @@ jobs:
 
       - name: Ejecutar Pruebas de Cobertura
         run: npm run test:coverage
+
+      - name: Iniciar servidor
+        run: npm start > server.log 2>&1 &
+        env:
+          MONGO_URI: mongodb://localhost:27017/hospital_test
+          JWT_SECRET: hospital_secret_key_2025
+          PORT: 3000
+          NODE_ENV: test
+
+      - name: Esperar servidor
+        run: sleep 3
+
+      - name: Ejecutar pruebas k6
+        run: k6 run carga-rendimiento.js
+        continue-on-error: true
