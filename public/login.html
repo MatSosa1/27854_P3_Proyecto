@@ -306,7 +306,13 @@
     </div>
 
     <script>
-        const apiUrl = 'http://localhost:3000/api';
+        // Detectar automáticamente el entorno
+        const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000/api'
+            : 'https://hospital-api-81p9.onrender.com/api';
+        
+        console.log('API URL:', apiUrl);
+        
         const loginTab = document.getElementById('loginTab');
         const registerTab = document.getElementById('registerTab');
         const loginForm = document.getElementById('loginForm');
