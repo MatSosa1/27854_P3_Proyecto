@@ -18,7 +18,7 @@ async function addNewDoctor(req, res) {
     // Validate required fields
     if (!name || !lastName || !specialty || !phone || !email || !licenseNumber) {
         return res.status(400).json({
-            message: 'Name, Last Name, Specialty, Phone, Email and License Number are required'
+            message: 'Name, Last Name, Specialty, Phone, Email and License Number are required',
         });
     }
 
@@ -27,7 +27,7 @@ async function addNewDoctor(req, res) {
         const existingDoctor = await Doctor.findOne({ licenseNumber });
         if (existingDoctor) {
             return res.status(409).json({
-                message: 'A doctor with this license number already exists'
+                message: 'A doctor with this license number already exists',
             });
         }
 
@@ -38,7 +38,7 @@ async function addNewDoctor(req, res) {
             specialty,
             phone,
             email,
-            licenseNumber
+            licenseNumber,
         });
 
         // Save to database
@@ -67,7 +67,7 @@ async function updateDoctor(req, res) {
             const existingDoctor = await Doctor.findOne({ licenseNumber, _id: { $ne: id } });
             if (existingDoctor) {
                 return res.status(409).json({
-                    message: 'A doctor with this license number already exists'
+                    message: 'A doctor with this license number already exists',
                 });
             }
         }

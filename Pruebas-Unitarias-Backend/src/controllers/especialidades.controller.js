@@ -24,7 +24,7 @@ async function addnewSpecialty(req, res) {
     try {
         // Validación especialidad duplicada
         const existingSpecialty = await Especialidad.findOne({ 
-            name: { $regex: new RegExp(`^${name}$`, 'i') } 
+            name: { $regex: new RegExp(`^${name}$`, 'i') },
         });
         
         if (existingSpecialty) {

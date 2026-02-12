@@ -1,18 +1,20 @@
 module.exports = {
   testEnvironment: 'node',
   preset: 'ts-jest',
-  transform: {
-    '^.+\\.ts$': ['ts-jest', {
-      tsconfig: {
-        module: 'commonjs',
-      }
-    }],
-    '^.+\\.js$': 'babel-jest',
-  },
   testMatch: [
     '**/?(*.)+(spec|test).[jt]s?(x)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  globals: {
+    'ts-jest': {
+      tsconfig: {
+        module: 'commonjs',
+        target: 'ES2020',
+        lib: ['ES2020'],
+        types: ['jest', 'node'],
+      },
+    },
+  },
   testPathIgnorePatterns: ['/node_modules/'],
   collectCoverageFrom: [
     'src/**/*.{js,ts}',

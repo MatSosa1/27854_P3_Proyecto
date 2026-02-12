@@ -7,6 +7,6 @@ module.exports = {
     setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
     collectCoverageFrom: [
         'src/**/*.js',
-        '!src/server.js'
-    ]
+        '!src/server.js',
+    ],
 };

@@ -28,7 +28,7 @@ async function addNewMedicamento(req, res) {
             price,
             quantity,
             category,
-            laboratory
+            laboratory,
         });
 
         // Lo guardamos en la base de datos

@@ -49,7 +49,7 @@ app.post('/api/run-tests', (req, res) => {
         if (error) {
             return res.status(500).json({
                 success: false,
-                error: error.message
+                error: error.message,
             });
         }
         res.json(result);
@@ -71,7 +71,7 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
         timestamp: new Date().toISOString(),
-        mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected'
+        mongodb: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
     });
 });
 
