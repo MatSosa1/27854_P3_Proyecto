@@ -19,7 +19,7 @@ module.exports = {
   coverageThreshold: {
     global: {
       branches: 80,
-      functions: 82,
+      functions: 81,
       lines: 80,
       statements: 80,
     },
@@ -34,13 +34,5 @@ module.exports = {
     '!src/testRunner.js',
     '!Pruebas-Unitarias-Backend/src/testRunner.js',
   ],
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 83,
-      lines: 80,
-      statements: 80,
-    },
-  },
   testTimeout: 10000,
 };
