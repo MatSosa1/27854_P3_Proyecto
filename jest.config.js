@@ -5,19 +5,27 @@ module.exports = {
     '**/?(*.)+(spec|test).[jt]s?(x)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  globals: {
-    'ts-jest': {
+  transform: {
+    '^.+\\.ts$': ['ts-jest', {
       tsconfig: {
         module: 'commonjs',
         target: 'ES2020',
         lib: ['ES2020'],
         types: ['jest', 'node'],
       },
-    },
+    }],
   },
   testPathIgnorePatterns: ['/node_modules/'],
   forceExit: true,
   detectOpenHandles: false,
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 82,
+      lines: 80,
+      statements: 80,
+    },
+  },
   collectCoverageFrom: [
     'src/**/*.{js,ts}',
     'Pruebas-Unitarias-Backend/src/**/*.{js,ts}',
