@@ -1,7 +1,12 @@
 const express = require('express');
 const path = require('node:path');
 const mongoose = require('mongoose');
-require('dotenv').config();
+const fs = require('fs');
+
+// Solo cargar dotenv si existe el archivo .env (desarrollo local)
+if (fs.existsSync('.env')) {
+    require('dotenv').config();
+}
 
 const patientRoutes = require('./routes/pacientes.routes');
 const medicamentosRoutes = require('./routes/medicamentos.routes');
