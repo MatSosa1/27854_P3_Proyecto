@@ -1,5 +1,5 @@
 // API Base URL
-const API_URL = 'https://hospitalms-ee038.web.app/api';
+const API_URL = 'https://hospital-api-81p9.onrender.com/api';
 
 // Initialize app
 document.addEventListener('DOMContentLoaded', () => {
