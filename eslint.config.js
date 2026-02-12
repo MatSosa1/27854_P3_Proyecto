@@ -23,4 +23,23 @@ module.exports = [
             'comma-dangle': 'off',
         },
     },
+    {
+        files: ['public/**/*.js'],
+        languageOptions: {
+            ecmaVersion: 'latest',
+            sourceType: 'module',
+            globals: {
+                window: 'readonly',
+                document: 'readonly',
+                localStorage: 'readonly',
+                fetch: 'readonly',
+                console: 'readonly',
+            },
+        },
+        rules: {
+            semi: ['error', 'always'],
+            quotes: ['error', 'single'],
+            'comma-dangle': 'off',
+        },
+    },
 ];
