@@ -28,8 +28,10 @@
         "mongoose": "^9.0.2"
     },
     "devDependencies": {
+        "@types/jest": "^30.0.0",
         "eslint": "^10.0.0",
         "jest": "^29.7.0",
-        "supertest": "^6.3.3"
+        "supertest": "^6.3.3",
+        "ts-jest": "^29.4.6"
     }
 }
