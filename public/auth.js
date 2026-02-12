@@ -2,7 +2,9 @@
  * Utilidades para manejar autenticación con JWT
  */
 
-const API_URL = 'http://localhost:3000/api';
+// API Base URL
+const API_URL = 'https://hospital-api-81p9.onrender.com/api';
+
 
 // Obtener token del localStorage
 export const getToken = () => {

@@ -1,5 +1,6 @@
 // API Base URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = 'https://hospital-api-81p9.onrender.com/api';
+
 
 // Handle logout
 function handleLogout() {
